@@ -1,0 +1,153 @@
+/* CanaryGuard 全局样式（按 uiskill - skills/ui/SKILL.md §5/§8 适配）：
+   中性底色 + 风险分级警示色语义（红/橙/黄/绿全局一致）、8px 间距阶梯、
+   卡片圆角统一、侧边栏深色导航激活态、色盲安全的文字+颜色双传递。 */
+:root {
+  /* 基础 */
+  --af-bg: #f5f7fa;
+  --af-sidebar-bg: #1f2a3d;
+  --af-sidebar-bg-deep: #182235;
+  --af-sidebar-text: #cfd6e4;
+  --af-sidebar-text-active: #ffffff;
+  --af-sidebar-accent: #409eff;
+  --af-header-h: 56px;
+  --af-card-radius: 8px;
+  /* 间距阶梯（4/8/12/16/24/32） */
+  --af-space-1: 4px;
+  --af-space-2: 8px;
+  --af-space-3: 12px;
+  --af-space-4: 16px;
+  --af-space-5: 24px;
+  --af-space-6: 32px;
+  /* 风险分级色（全局唯一语义，禁止随意换色） */
+  --cg-danger: #f56c6c;   /* 红色：高危/封禁/告警 L4+ */
+  --cg-warning: #a4622a;  /* 橙色：中危/待确认 L3（加深提对比度，白底 ≈4.8:1） */
+  --cg-yellow: #f7ba2a;   /* 黄色：低危/提示 */
+  --cg-success: #67c23a;  /* 绿色：安全/正常 */
+  --cg-info: #909399;
+  --cg-primary: #409eff;
+}
+
+* { box-sizing: border-box; }
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--af-bg);
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  color: #303133;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 页面与卡片（间距/圆角统一） ---------- */
+.af-page { padding: var(--af-space-4); }
+.af-card { margin-bottom: var(--af-space-4); border-radius: var(--af-card-radius); }
+.el-card { border-radius: var(--af-card-radius); }
+.el-card__header { font-weight: 600; }
+
+.af-mono { font-family: Consolas, 'Courier New', ui-monospace, monospace; }
+.af-muted { color: #606266; font-size: 12px; }
+.af-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* 风险等级语义色（颜色 + 文字双传递，色盲安全） */
+.text-danger { color: var(--cg-danger); }
+.text-warning { color: var(--cg-warning); }
+.text-success { color: var(--cg-success); }
+.text-info { color: var(--cg-info); }
+
+.mt8 { margin-top: var(--af-space-2); }
+.mt16 { margin-top: var(--af-space-4); }
+.mb16 { margin-bottom: var(--af-space-4); }
+
+/* ---------- 侧边栏（uiskill §4/§8：分组/激活态/折叠） ---------- */
+.af-sidebar-menu.el-menu {
+  border-right: none;
+  background: var(--af-sidebar-bg);
+}
+.af-sidebar-menu .el-menu-item,
+.af-sidebar-menu .el-sub-menu__title {
+  height: 44px;
+  line-height: 44px;
+  color: var(--af-sidebar-text);
+  margin: 2px var(--af-space-2);
+  border-radius: 6px;
+}
+.af-sidebar-menu .el-menu-item:hover,
+.af-sidebar-menu .el-sub-menu__title:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--af-sidebar-text-active);
+}
+.af-sidebar-menu .el-menu-item.is-active {
+  color: var(--af-sidebar-text-active);
+  background: linear-gradient(90deg, rgba(64, 158, 255, 0.28), rgba(64, 158, 255, 0.08));
+  border-left: 3px solid var(--af-sidebar-accent);
+  font-weight: 600;
+}
+/* 分组标题 */
+.af-sidebar-menu .el-menu-item-group__title {
+  color: #7a8aa5;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 14px 20px 6px;
+}
+/* 子级菜单（展开的会话列表等） */
+.af-sidebar-menu .el-menu--inline {
+  background: var(--af-sidebar-bg-deep);
+}
+.af-sidebar-menu .el-menu--inline .el-menu-item {
+  margin: 1px var(--af-space-2);
+  min-width: 0;
+}
+/* 折叠态：图标居中、hover 弹出 popper 一致配色 */
+.af-sidebar-menu.el-menu--collapse .el-menu-item,
+.af-sidebar-menu.el-menu--collapse .el-sub-menu__title {
+  margin: 2px var(--af-space-2);
+  justify-content: center;
+  padding: 0 14px !important;
+}
+.cg-sidebar-popper .el-menu--popup {
+  background: var(--af-sidebar-bg);
+  border-radius: 8px;
+}
+.cg-sidebar-popper .el-menu-item {
+  color: var(--af-sidebar-text);
+}
+.cg-sidebar-popper .el-menu-item.is-active {
+  color: var(--af-sidebar-text-active);
+  background: rgba(64, 158, 255, 0.25);
+}
+
+/* ---------- 顶栏 ---------- */
+.af-header {
+  background: #fff;
+  border-bottom: 1px solid #e4e7ed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--af-header-h);
+  padding: 0 20px;
+}
+.af-header-title { font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: var(--af-space-2); }
+
+/* ---------- 表单/表格微调（uiskill §6） ---------- */
+.af-table-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--af-space-3);
+  flex-wrap: wrap;
+}
+
+/* 滚动条精简（不抢视觉） */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #c6ccd6; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #aab2bf; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ---------- 移动端基础适配（<=900px：窄屏不溢出、可滚动；非全面响应式） ---------- */
+@media (max-width: 900px) {
+  .af-aside { width: 160px !important; }
+  .af-header { flex-wrap: wrap; height: auto; min-height: var(--af-header-h); padding: 8px 12px; row-gap: 4px; }
+  .af-header > div { flex-wrap: wrap; row-gap: 4px; column-gap: 10px; }
+  .el-dialog { max-width: 92vw !important; }
+  .el-message-box { max-width: 92vw !important; }
+}

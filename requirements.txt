@@ -1,0 +1,36 @@
+# 金丝雀蜜罐 CanaryGuard AntiFraud —— 运行依赖（P3-7 起带版本上限锁定）
+# 主方案《01_蜜罐反诈V2_双形态技术方案与实施计划.md》§3 技术栈
+# 与 pyproject.toml [project.dependencies] 双维护；本文件为部署单一事实源。
+
+# ---- Web 框架 ----
+fastapi>=0.115.0,<1.0
+uvicorn[standard]>=0.30.0,<1.0
+python-multipart>=0.0.9,<1.0
+jinja2>=3.1.0,<4.0
+
+# ---- 配置与数据校验 ----
+pydantic>=2.7.0,<3.0
+pydantic-settings>=2.3.0,<3.0
+
+# ---- 调度（P2-2 已落地：app/services/scheduler.py）----
+APScheduler>=3.10.0,<4.0.0
+
+# ---- HTTP 客户端（LLM Provider / 知乎通道 / MCP 透传层共用）----
+httpx>=0.27.0,<1.0
+
+# ---- MCP Server（P8 透传层，官方 SDK 2.x：MCPServer / add_request_handler 新 API）----
+mcp>=2.0.0,<3.0
+
+# ---- CH-A 主通道（可选依赖；缺失自动降级 CH-B/CH-D，P2 已实现降级）----
+# 启用 CH-A：pip install playwright && playwright install chromium
+# playwright>=1.40.0
+
+# ---- LLM 输出 schema 校验（D4，llm_provider）----
+jsonschema>=4.20.0,<5.0
+
+# ---- 加密（bootstrap key / cookie Fernet 加密）----
+cryptography>=42.0.0
+
+# ---- 测试 ----
+pytest>=8.0.0,<10.0
+pytest-asyncio>=0.23.0,<2.0

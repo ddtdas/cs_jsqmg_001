@@ -1,0 +1,50 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# ---- 虚拟环境 ----
+.venv/
+venv/
+
+# ---- 数据与运行时产物（含敏感 key）----
+data/
+var/
+*.db
+*.db-wal
+*.db-shm
+
+# ---- 环境变量（含密钥，禁止入库）----
+.env
+
+# ---- 前端（P7）----
+node_modules/
+webui/dist/
+
+# ---- 测试缓存 ----
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ---- 脚本测试产物（P3-7：运行输出与一次性调试脚本不入库）----
+scripts/_*.json
+scripts/_*.txt
+scripts/_dbg_*.py
+scripts/_chk_*.py
+scripts/_check_*.py
+
+# ---- 打包产物（P3-7）----
+*.egg-info/
+
+# ---- IDE / 系统 ----
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store
+
+# ---- 本地 DSH 实例目录（含会话/凭据，禁止上传）----
+dsh/
+

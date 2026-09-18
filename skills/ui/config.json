@@ -1,0 +1,11 @@
+{
+  "name": "ui",
+  "description": "Vue3 + Element Plus UI 优化与侧边栏导航设计指南（CanaryGuard 反诈安全工具适配版），基于 Anthropic 官方 frontend-design skill 本地化。覆盖核心 UI 设计原则、Element Plus 组件最佳实践、7 项侧边栏导航信息架构、响应式可访问性与构建性能要点。",
+  "version": "1.0.0",
+  "source": "https://github.com/anthropics/claude-plugins-official/blob/b392f51899343f35a203260a4b344803de236d13/plugins/frontend-design/skills/frontend-design/SKILL.md",
+  "source_license": "Anthropic claude-plugins-official LICENSE.txt",
+  "adapted_for": "金丝雀蜜罐 CanaryGuard (webui/, Vue3+Vite+Element Plus+ECharts+Pinia+vue-router)",
+  "project_root": "C:\\Users\\Administrator\\Desktop\\知乎黑客松\\金丝雀蜜罐",
+  "tags": ["ui", "vue3", "element-plus", "sidebar", "canaryguard"],
+  "updated": "2025-01-01"
+}

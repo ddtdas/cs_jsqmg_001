@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "canaryguard-antifraud"
+description = "蜜罐反诈双形态主控：FastAPI REST 同一内核，WebUI/MCP 均为客户端（CanaryGuard AntiFraud）"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "CanaryGuard AntiFraud contributors" }]
+keywords = ["anti-fraud", "honeypot", "zhihu", "fastapi", "mcp"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Framework :: FastAPI",
+    "Topic :: Security",
+]
+dynamic = ["version"]
+dependencies = [
+    # 与 requirements.txt 双维护（P3-7）；requirements.txt 为运行部署的单一事实源
+    "fastapi>=0.115,<1.0",
+    "uvicorn[standard]>=0.30,<1.0",
+    "python-multipart>=0.0.9,<1.0",
+    "jinja2>=3.1,<4.0",
+    "pydantic>=2.7,<3.0",
+    "pydantic-settings>=2.3,<3.0",
+    "APScheduler>=3.10,<4.0",
+    "httpx>=0.27,<1.0",
+    "mcp>=2.0,<3.0",
+    "jsonschema>=4.20,<5.0",
+    "cryptography>=42.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.23,<2.0"]
+ch-a = ["playwright>=1.40"]
+
+[project.scripts]
+canaryguard = "app.run:main"
+
+[tool.setuptools]
+packages = [
+    "app",
+    "app.api",
+    "app.services",
+    "app.middleware",
+    "app.models",
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "app.__version__" }
+
+# ---------------------------------------------------------------------------
+# 说明（P3-7）：
+# - mcp/ 为命名空间段（严禁 __init__.py，避免遮蔽 site-packages 的官方 mcp SDK 包，
+#   导致 `from mcp.server.mcpserver import MCPServer` 失败），因此不打包进 wheel，
+#   以源码方式随仓库运行；
+# - pytest 配置保留在 pytest.ini（testpaths/pythonpath），此处不重复声明。
+# ---------------------------------------------------------------------------
